@@ -57,6 +57,12 @@ class OrderDSL {
     def dine_in_for(int numberOfPeople) {
         // TODO: Kalo kantin masih cukup, kurangin canteen.canteenCapacity
         //       kalo ga cukup, print kalo customer ini disuruh takeaway
+        if (canteen.canteenCapacity > 0){
+            canteen.canteenCapacity -= numberOfPeople
+            println numberOfPeople + " dine in canteen"
+        } else {
+            println "Customer must take away"
+        }
     }
 }
 
