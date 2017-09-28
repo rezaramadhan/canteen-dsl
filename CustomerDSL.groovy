@@ -28,7 +28,8 @@ class CustomerDSL {
     }
 
     def left() {
-        //TODO: tambahin canteenCapacity pake numberOfPeople
+        canteen.canteenCapacity += numberOfPeople
+        println "Canteen has the capacity of " + numberOfPeople + " customers"
     }
 }
 
@@ -38,11 +39,16 @@ class OrderDSL {
     int totalPrice = 0
 
     def menu(String itemName, int itemAmount) {
-        def item = new OrderItem(name:itemName, amount: itemAmount)
+        def findItem = itemList.find { p -> p.name == itemName }
 
-        //TODO: Mirip sama yang sebelumnya, tambahin amount kalo udah ada di list
-
-        itemList << item
+        if ( findItem != null ) {
+            findItem.amount += itemAmount
+            println itemName + " gets " + itemAmount + " extras"
+        } else {
+            def item = new OrderItem(name:itemName, amount: itemAmount)
+            itemList << item
+        }
+        println itemList
 
         //TODO: hitung total price, didapet dari itemList yang dibandingin sama harga menu
         //      di canteen.menuDSL.avaiableMenu
@@ -55,8 +61,6 @@ class OrderDSL {
     }
 
     def dine_in_for(int numberOfPeople) {
-        // TODO: Kalo kantin masih cukup, kurangin canteen.canteenCapacity
-        //       kalo ga cukup, print kalo customer ini disuruh takeaway
         if (canteen.canteenCapacity > 0){
             canteen.canteenCapacity -= numberOfPeople
             println numberOfPeople + " dine in canteen"
