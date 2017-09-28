@@ -30,14 +30,14 @@ CanteenDSL.open{
     at_price 7000
 
     menu {
-        avaiable_menu {
+        available_menu {
             menu_name "mie goreng"
             ingredient "rice", 1
             ingredient "eggs", 1
             price 15000
         }
 
-        avaiable_menu {
+        available_menu {
             menu_name "es teh"
             ingredient "tea", 1
             price 3000

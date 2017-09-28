@@ -3,7 +3,7 @@ package canteen.stock
 import groovy.transform.ToString
 
 class FoodStockDSL {
-    def avaiableStock = []
+    def availableStock = []
 
     def static current_stocks (closure) {
         FoodStockDSL foodStockDSL = new FoodStockDSL()
@@ -12,14 +12,18 @@ class FoodStockDSL {
     }
 
     def ready(String stockName, int stockAmount) {
-        //TODO: Tambahin check: kalo foodstock yang baru namanya udah ada di avaiableStock,
-        //       item.amount += stockAmount
+      def item = availableStock.find { p -> p.name == stockName }
 
+      if ( item != null ) {
+        item.amount += stockAmount
+        println stockName + " gets " + stockAmount + " extras"
+      } else {
         def foodStock = new FoodStock(name:stockName, amount:stockAmount)
-        avaiableStock << foodStock
-
+        availableStock << foodStock
         print foodStock
         println " is ready"
+      }
+      println availableStock
     }
 
     //TODO: tambahin method buat buang makanan,

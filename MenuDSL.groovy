@@ -3,16 +3,16 @@ package canteen.menu
 import groovy.transform.ToString
 
 class MenuDSL {
-    def avaiableMenu = []
+    def availableMenu = []
 
-    def avaiable_menu (closure) {
+    def available_menu (closure) {
         def menuItemDSL = new MenuItemDSL()
         closure.delegate = menuItemDSL
         closure()
 
-        this.avaiableMenu << menuItemDSL.menuItem
+        this.availableMenu << menuItemDSL.menuItem
 
-        println(this.avaiableMenu)
+        println(this.availableMenu)
     }
 }
 
@@ -41,7 +41,7 @@ class MenuItemDSL {
 class MenuItem {
     String name
     int price
-    int currentAvaiable
+    int currentAvailable
     def ingredients = []
 }
 @ToString
