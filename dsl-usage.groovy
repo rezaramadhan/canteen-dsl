@@ -47,26 +47,26 @@ CanteenDSL.open{
 
     cooks "mie goreng", 2
     cooks "es teh", 2
-    //
-    // event_happened {
-    //     customer_is_coming {
-    //         he_ordered {
-    //             menu "mie goreng", 1
-    //             menu "es teh", 1
-    //             takeaway
-    //         }
-    //         paid 100000
-    //     }
-    //
-    //     customer_is_coming {
-    //         he_ordered {
-    //             menu "mie goreng", 2
-    //             menu "es teh", 2
-    //             dine_in_for 2
-    //         }
-    //         paid 100000
-    //         he_left
-    //     }
-    // }
+
+    event_happened {
+        customer_is_coming {
+            he_ordered {
+                menu "mie goreng", 1
+                menu "es teh", 1
+                take_away()
+            }
+            paid 100000
+        }
+
+        customer_is_coming {
+            he_ordered {
+                menu "mie goreng", 2
+                menu "es teh", 2
+                dine_in_for 2
+            }
+            paid 100000
+            left()
+        }
+    }
 
 }

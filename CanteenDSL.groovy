@@ -2,6 +2,7 @@ package canteen
 
 import canteen.stock.*
 import canteen.menu.*
+import canteen.customer.*
 
 class CanteenDSL {
     //NOTE: ambil avaiableMenu di menuDSL.avaiableMenu
@@ -66,5 +67,15 @@ class CanteenDSL {
         //        item yang dimasak di avaiableMenu.
         //        print message yang nyatain kalo berhasil masak
         //     4. kalo jumlah ga cukup, print message yang nyatain error
+    }
+
+    def event_happened(closure) {
+        closure()
+    }
+
+    def customer_is_coming(closure) {
+        def customerDSL = new CustomerDSL(canteen:this)
+        closure.delegate = customerDSL
+        closure()
     }
 }
