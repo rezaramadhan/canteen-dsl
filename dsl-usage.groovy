@@ -32,8 +32,9 @@ CanteenDSL.open{
     menu {
         available_menu {
             menu_name "mie goreng"
-            ingredient "rice", 1
+            ingredient "noodle", 1
             ingredient "eggs", 1
+            ingredient "noodle", 1
             price 15000
         }
 

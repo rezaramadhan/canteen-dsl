@@ -28,12 +28,17 @@ class MenuItemDSL {
     }
 
     def ingredient(String ingredientName, int ingredientAmount){
-        def rawMaterial = new Ingredient(name: ingredientName, amount: ingredientAmount)
+        def item = menuItem.ingredients.find { p -> p.name == ingredientName }
 
-        //TODO: Tambahin check: kalo ingredient yang baru namanya udah ada di ingredient,
-        //       item.amount += stockAmount
-
-        menuItem.ingredients << rawMaterial
+        if ( item != null ) {
+            item.amount += ingredientAmount
+            println ingredientName + " gets " + ingredientAmount + " extras"
+        } else {
+            def rawMaterial = new Ingredient(name: ingredientName, amount: ingredientAmount)
+            menuItem.ingredients << rawMaterial
+            print menuItem
+            println " is ready"
+        }
     }
 }
 
