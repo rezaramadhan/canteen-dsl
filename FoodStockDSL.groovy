@@ -28,6 +28,16 @@ class FoodStockDSL {
 
     //TODO: tambahin method buat buang makanan,
     def expired_food(String stockName, int stockAmount) {
+        //Asumsi: Pegawai melakukan pengecekan manual
+        def item = availableStock.find { p -> p.name == stockName }
+
+      if ( item != null ) {
+        item.amount -= stockAmount
+        println stockName + " has " + stockAmount + " expired amount"
+      } else {
+        println "There is no stock by the name " + stockName
+      }
+      println availableStock
 
     }
 }
