@@ -1,16 +1,37 @@
 package canteen
 
 import canteen.stock.*
+import canteen.menu.*
 
 class CanteenDSL {
+    //NOTE: ambil avaiableMenu di menuDSL.avaiableMenu
+    //NOTE: ambil avaiableStock di menuDSL.avaiableStock
+
     int canteenCapacity
-    FoodStockDSL foodStockDSL
     int currentMoney
+    MenuDSL menuDSL
+    FoodStockDSL foodStockDSL
+
 
     // ini kayak init method gitu, set static
     def static open(closure) {
         CanteenDSL canteenDSL = new CanteenDSL()
         closure.delegate = canteenDSL
+        closure()
+    }
+
+    def current_stocks(closure) {
+        // ini tuh kayak semua fungsi yang dipanggil didalem current_stocks{}
+        // bakal dipanggil sama kelas FoodStockDSL
+
+        foodStockDSL = new FoodStockDSL()
+        closure.delegate = foodStockDSL
+        closure()
+    }
+
+    def menu(closure) {
+        menuDSL = new MenuDSL()
+        closure.delegate = menuDSL
         closure()
     }
 
@@ -24,24 +45,9 @@ class CanteenDSL {
         println("Canteen capacity is set to: " + this.canteenCapacity)
     }
 
-    def current_stocks(closure) {
-        // ini tuh kayak semua fungsi yang dipanggil didalem current_stocks{}
-        // bakal dipanggil sama kelas FoodStockDSL
-
-        foodStockDSL = new FoodStockDSL()
-        closure.delegate = foodStockDSL
-        closure()
-    }
 
     def buy_stocks(String stockName, int stockAmount) {
-        //TODO: Tambahin check: kalo foodstock yang baru namanya udah ada di avaiableStock,
-        //       item.amount += stockAmount
-
-        def foodStock = new FoodStock(name:stockName, amount:stockAmount)
-
-        foodStockDSL.avaiableStock << foodStock
-
-        println foodStockDSL.avaiableStock
+        foodStockDSL.ready(stockName, stockAmount)
     }
 
     def at_price(int price) {
@@ -50,6 +56,15 @@ class CanteenDSL {
 
         println("current canteen income is: " + currentMoney)
     }
-}
 
-//TODO: buat kelas menu item, itu
+    def cooks(String name, int amount) {
+        // TODO:
+        //     1. cari list ingredient dari avaiableMenu
+        //     2. kurangin ingredient yang ada di avaiableStock sesuai list ingredient
+        //        yang tadi
+        //     3. kalo jumlah ingredient cukup, tambahin currentAvaiable dari
+        //        item yang dimasak di avaiableMenu.
+        //        print message yang nyatain kalo berhasil masak
+        //     4. kalo jumlah ga cukup, print message yang nyatain error
+    }
+}

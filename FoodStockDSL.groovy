@@ -22,8 +22,13 @@ class FoodStockDSL {
         println " is ready"
     }
 
+    //TODO: tambahin method buat buang makanan,
+    def expired_food(String stockName, int stockAmount) {
+
+    }
 }
 
+// TODO: ubah method tostring biar lebih enak dibacanya
 @ToString
 class FoodStock {
     String name

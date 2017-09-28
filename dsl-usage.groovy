@@ -29,21 +29,24 @@ CanteenDSL.open{
     buy_stocks "eggs", 10
     at_price 7000
 
-    // avaiable_menu {
-    //     menu_name "mie goreng"
-    //     raw_materials "rice", 1
-    //     raw_materials "eggs", 1
-    //     price 15000
-    // }
-    //
-    // avaiable_menu {
-    //     menu_name "es teh"
-    //     raw_materials "tea", 1
-    //     price 3000
-    // }
+    menu {
+        avaiable_menu {
+            menu_name "mie goreng"
+            ingredient "rice", 1
+            ingredient "eggs", 1
+            price 15000
+        }
 
-    // cooks "mie goreng", 2
-    // cooks "es teh", 2
+        avaiable_menu {
+            menu_name "es teh"
+            ingredient "tea", 1
+            price 3000
+        }
+    }
+
+
+    cooks "mie goreng", 2
+    cooks "es teh", 2
     //
     // event_happened {
     //     customer_is_coming {
