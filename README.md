@@ -1,6 +1,6 @@
 First, you need to compile using
 ```
-    groovyc CanteenDSL.groovy FoodStockDSL.groovy
+    groovyc CanteenDSL.groovy FoodStockDSL.groovy MenuDSL.groovy CustomerDSL.groovy
 ```
 
 Then, run the DSL usage example using
