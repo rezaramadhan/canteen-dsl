@@ -19,11 +19,16 @@ class CustomerDSL {
     }
 
     def paid(int money) {
-        //TODO: tambahin canteen.currentMoney pake harga total order,
-        //      print bahwa duit kita nambah
-        //      kalo si customer bayar pake uang yang lebih gede daripada order
-        //      print bahwa kita ngasih kembalian ke customer itu
-        //      kalo duitnya kurang print kalo si customer ini dilaporin ke satpam itb
+        if (money == totalPrice){
+            canteen.currentMoney += totalPrice
+            println "Canteen's current money is " + canteen.currentMoney
+        } else if (money > totalPrice){
+            def change = money - totalPrice
+            println "Customer received change of " + change + " rupiah"
+        } else {
+            println "Customer is being reported to the ITB security guard"
+        }
+
 
     }
 
