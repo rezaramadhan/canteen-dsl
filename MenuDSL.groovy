@@ -12,7 +12,7 @@ class MenuDSL {
 
         this.availableMenu << menuItemDSL.menuItem
 
-        println(this.availableMenu)
+        println "Add menu. Available Menu: " + this.availableMenu
     }
 }
 

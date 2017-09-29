@@ -40,6 +40,18 @@ class FoodStockDSL {
       println availableStock
 
     }
+
+    def throw_away(String stockName) {
+      def item = availableStock.find { p -> p.name == stockName }
+
+      if ( item != null ) {
+        item.amount = 0
+        println stockName + " has been discarded"
+      } else {
+        println "There is no stock by the name " + stockName
+      }
+      println availableStock
+    }
 }
 
 // TODO: ubah method tostring biar lebih enak dibacanya

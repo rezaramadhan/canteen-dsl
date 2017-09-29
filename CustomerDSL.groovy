@@ -53,16 +53,21 @@ class OrderDSL {
             def item = new OrderItem(name:itemName, amount: itemAmount)
             itemList << item
         }
-        println itemList
 
-        //TODO: hitung total price, didapet dari itemList yang dibandingin sama harga menu
-        //      di canteen.menuDSL.avaiableMenu
-        println("   pesan menu")
-        println(itemList)
+        //Count price and add to totalprice
+        def itMenu = canteen.menuDSL.availableMenu.find { p -> p.name == itemName }
+
+        if ( itMenu != null ) {
+            totalPrice += itMenu.price * itemAmount
+        } else {
+            println "Menu " + itemName + " not found"
+        }
+        println "Ordered items ${itemList}"
+        println "Total price ${totalPrice}"
     }
 
     def take_away() {
-        print("Customer memilih untuk take-away makanannya.")
+        println "Take away order"
     }
 
     def dine_in_for(int numberOfPeople) {

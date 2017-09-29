@@ -59,14 +59,32 @@ class CanteenDSL {
     }
 
     def cooks(String name, int amount) {
-        // TODO:
-        //     1. cari list ingredient dari avaiableMenu
-        //     2. kurangin ingredient yang ada di avaiableStock sesuai list ingredient
-        //        yang tadi
-        //     3. kalo jumlah ingredient cukup, tambahin currentAvaiable dari
-        //        item yang dimasak di avaiableMenu.
-        //        print message yang nyatain kalo berhasil masak
-        //     4. kalo jumlah ga cukup, print message yang nyatain error
+        println "Available Menu " + menuDSL.availableMenu
+        def item = menuDSL.availableMenu.find { p -> p.name == name }
+        if ( item == null ) {
+          println "There is no ${name} in menu"
+        } else {
+          //Check if raw materials sufficient for cooking
+          //Give out of stock item name if any
+          def isStockSafe = true
+          for (it in item.ingredients) {
+            def stockItem = foodStockDSL.availableStock.find { p -> p.name = it.name }
+            if (stockItem.amount < it.amount) {
+              isStockSafe = false
+              println "Insufficient amount of ${stockItem.name}"
+            }
+          }
+
+          //If there are enough food stock, substract stock amount, add menu amount
+          if ( isStockSafe ) {
+            for (it in item.ingredients) {
+              def stockItem = foodStockDSL.availableStock.find { p -> p.name = it.name }
+              stockItem.amount -= it.amount
+            }
+            item.currentAvailable += amount
+            println "Add ${amount} to menu ${name}"
+          }
+        }
     }
 
     def event_happened(closure) {
