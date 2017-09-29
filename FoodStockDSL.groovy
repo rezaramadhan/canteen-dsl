@@ -20,10 +20,8 @@ class FoodStockDSL {
       } else {
         def foodStock = new FoodStock(name:stockName, amount:stockAmount)
         availableStock << foodStock
-        print foodStock
-        println " is ready"
+        println (stockAmount + " "+ stockName + " is ready")
       }
-      println availableStock
     }
 
     //TODO: tambahin method buat buang makanan,
@@ -55,7 +53,7 @@ class FoodStockDSL {
 }
 
 // TODO: ubah method tostring biar lebih enak dibacanya
-@ToString
+@ToString()
 class FoodStock {
     String name
     int amount

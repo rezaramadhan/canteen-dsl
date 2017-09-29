@@ -1,6 +1,6 @@
 package canteen.menu
 
-import groovy.transform.ToString
+import groovy.transform.*
 
 class MenuDSL {
     def availableMenu = []
@@ -11,8 +11,8 @@ class MenuDSL {
         closure()
 
         this.availableMenu << menuItemDSL.menuItem
-
-        println "Add menu. Available Menu: " + this.availableMenu
+        print menuItemDSL.menuItem
+        println " is Added to menu list"
     }
 }
 
@@ -36,12 +36,9 @@ class MenuItemDSL {
         } else {
             def rawMaterial = new Ingredient(name: ingredientName, amount: ingredientAmount)
             menuItem.ingredients << rawMaterial
-            print menuItem
-            println " is ready"
         }
     }
 }
-
 @ToString
 class MenuItem {
     String name
@@ -49,7 +46,7 @@ class MenuItem {
     int currentAvailable
     def ingredients = []
 }
-@ToString
+@ToString()
 class Ingredient {
     String name
     int amount

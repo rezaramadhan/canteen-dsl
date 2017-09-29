@@ -1,7 +1,7 @@
 package canteen.customer
 
 import canteen.CanteenDSL
-import groovy.transform.ToString
+import groovy.transform.*
 
 class CustomerDSL {
     CanteenDSL canteen
@@ -14,27 +14,29 @@ class CustomerDSL {
         closure.delegate = orderDSL
         closure()
 
-        orderItems = orderDSL.itemList
-        totalPrice = orderDSL.totalPrice
+        this.orderItems = orderDSL.itemList
+        this.totalPrice = orderDSL.totalPrice
+        this.numberOfPeople = orderDSL.numberOfPeople
+
+        println "A customer ordered items ${orderDSL.itemList}"
+        println "with total price of ${orderDSL.totalPrice}"
     }
 
     def paid(int money) {
-        if (money == totalPrice){
-            canteen.currentMoney += totalPrice
+        if (money >= totalPrice){
+            def change = money - this.totalPrice
+            canteen.currentMoney += this.totalPrice
             println "Canteen's current money is " + canteen.currentMoney
-        } else if (money > totalPrice){
-            def change = money - totalPrice
             println "Customer received change of " + change + " rupiah"
         } else {
             println "Customer is being reported to the ITB security guard"
         }
-
-
     }
 
     def left() {
-        canteen.canteenCapacity += numberOfPeople
-        println "Canteen has the capacity of " + numberOfPeople + " customers"
+        canteen.canteenCapacity += this.numberOfPeople
+        println this.numberOfPeople + " customer has left"
+        println "Canteen has the capacity of " + canteen.canteenCapacity + " customers"
     }
 }
 
@@ -42,6 +44,7 @@ class OrderDSL {
     CanteenDSL canteen
     def itemList = []
     int totalPrice = 0
+    int numberOfPeople
 
     def menu(String itemName, int itemAmount) {
         def findItem = itemList.find { p -> p.name == itemName }
@@ -62,26 +65,25 @@ class OrderDSL {
         } else {
             println "Menu " + itemName + " not found"
         }
-        println "Ordered items ${itemList}"
-        println "Total price ${totalPrice}"
     }
 
     def take_away() {
-        println "Take away order"
+        println "He choose to take away his order"
     }
 
     def dine_in_for(int numberOfPeople) {
         if (canteen.canteenCapacity > 0){
             canteen.canteenCapacity -= numberOfPeople
+            this.numberOfPeople = numberOfPeople
             println numberOfPeople + " dine in canteen"
+            println "Canteen has the capacity of " + canteen.canteenCapacity + " customers"
         } else {
-            println "Customer must take away"
+            println "Canteen's capacity is not enough. Customer must take away"
         }
     }
 }
 
-@ToString
-class OrderItem {
+@ToString() class OrderItem {
     String name
     int amount
 }

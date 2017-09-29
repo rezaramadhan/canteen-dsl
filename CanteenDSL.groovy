@@ -5,8 +5,8 @@ import canteen.menu.*
 import canteen.customer.*
 
 class CanteenDSL {
-    //NOTE: ambil avaiableMenu di menuDSL.avaiableMenu
-    //NOTE: ambil avaiableStock di menuDSL.avaiableStock
+    //NOTE: ambil availableMenu di menuDSL.availableMenu
+    //NOTE: ambil availableStock di menuDSL.availableStock
 
     int canteenCapacity
     int currentMoney
@@ -22,9 +22,6 @@ class CanteenDSL {
     }
 
     def current_stocks(closure) {
-        // ini tuh kayak semua fungsi yang dipanggil didalem current_stocks{}
-        // bakal dipanggil sama kelas FoodStockDSL
-
         foodStockDSL = new FoodStockDSL()
         closure.delegate = foodStockDSL
         closure()
@@ -43,7 +40,7 @@ class CanteenDSL {
 
     def has_money(int i) {
         this.currentMoney = i
-        println("Canteen capacity is set to: " + this.canteenCapacity)
+        println("Now, the canteen has Rp. " + this.currentMoney)
     }
 
 
@@ -55,11 +52,10 @@ class CanteenDSL {
         // Method untuk beli barang x dengan harga price
         this.currentMoney -= price
 
-        println("current canteen income is: " + currentMoney)
+        println("We use "+price+" to buy food, current canteen's money is: " + currentMoney)
     }
 
     def cooks(String name, int amount) {
-        println "Available Menu " + menuDSL.availableMenu
         def item = menuDSL.availableMenu.find { p -> p.name == name }
         if ( item == null ) {
           println "There is no ${name} in menu"
@@ -82,7 +78,7 @@ class CanteenDSL {
               stockItem.amount -= it.amount
             }
             item.currentAvailable += amount
-            println "Add ${amount} to menu ${name}"
+            println "${amount} portion of ${name} is cooked"
           }
         }
     }
